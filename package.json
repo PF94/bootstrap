@@ -15,6 +15,9 @@
   "author": "Twitter, Inc.",
   "scripts": {
     "netlify": "grunt dist docs-css docs-js copy:docs build-glyphicons-data build-customizer && npm run sri && grunt jekyll:netlify",
+    "css": "npm-run-all css-compile css-compile-mini",
+    "css-compile": "sass scss/_bootstrap.scss:dist/css/bootstrap.css scss/bootstrap/_theme.scss:dist/css/bootstrap-theme.css",
+    "css-compile-mini": "sass scss/_bootstrap.scss:dist/css/bootstrap.min.css scss/bootstrap/_theme.scss:dist/css/bootstrap-theme.min.css --style=compressed",
     "sri": "node grunt/generate-sri.js",
     "release": "grunt prep-release && npm run sri && npm run release-zip",
     "release-zip": "cross-env-shell \"shx rm -rf bootstrap-$npm_package_version-dist && shx cp -r dist/ bootstrap-$npm_package_version-dist && zip -r9 bootstrap-$npm_package_version-dist.zip bootstrap-$npm_package_version-dist && shx rm -rf bootstrap-$npm_package_version-dist\"",
@@ -33,7 +36,10 @@
     "url": "https://github.com/twbs/bootstrap/issues"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.54.9"
+  },
   "devDependencies": {
     "autoprefixer": "9.5.0",
     "btoa": "^1.2.1",
@@ -82,7 +88,7 @@
     "fonts",
     "grunt",
     "js/*.js",
-    "less/**/*.less",
+    "scss/**/*.scss",
     "Gruntfile.js",
     "LICENSE"
   ],
